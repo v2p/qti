@@ -24,6 +24,13 @@ class AssessmentSection
     protected $identifier;
 
     /**
+     * Meaning: When doing a random pre-selection this section must always be selected.
+     *
+     * @var bool
+     */
+    protected $required;
+
+    /**
      * @var string
      */
     protected $title;
@@ -72,6 +79,8 @@ class AssessmentSection
     protected $assessmentItemRef;
 
     /**
+     * Deeper levels of <assessmentSection>’s is not allowed.
+     *
      * @var AssessmentSection
      */
     protected $assessmentSection;
