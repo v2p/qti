@@ -7,6 +7,10 @@
 
 namespace NLQTI;
 
+use NLQTI\Base\AbstractModel;
+use NLQTI\DataType\BooleanDataType;
+use NLQTI\DataType\StringDataType;
+
 /**
  * Class AssessmentSection
  * The profile defines underneath the testPart level a single <assessmentSection> element. This is called the main assessmentSection level
@@ -14,50 +18,21 @@ namespace NLQTI;
  * There has to be at least one assessmentItemRef or assessmentSection element present in the main assessmentSection
  *
  * @package NLQTI
+ *
+ * @property string $identifier
+ *
+ * @property bool $required Meaning: When doing a random pre-selection this section must always be selected.
+ *
+ * @property string $title
+ *
+ * @property bool $visible Is the fact that there is a section visible to the learner?
+ *
+ * @property bool $keepTogether True (default): The content of this section must be kept together.
+ *  False (applicable only for visible=”false”): The content in this section can be mingled with the content of the surrounding section
+ *
  */
-class AssessmentSection
+class AssessmentSection extends AbstractModel
 {
-    //region Attributes
-    /**
-     * @var string
-     */
-    protected $identifier;
-
-    /**
-     * Meaning: When doing a random pre-selection this section must always be selected.
-     *
-     * @var bool
-     */
-    protected $required;
-
-    /**
-     * @var string
-     */
-    protected $title;
-
-    /**
-     * Is the fact that there is a section visible to the learner?
-     *
-     *  - true: The rendering engine is allowed to show the existence of the section to the learner,
-     * for instance in some kind of hierarchical overview.
-     *
-     *  - false: The rendering engine is not allowed to show the existence of the section to the learner.
-     * All content in this section must be shown as part of the surrounding section.
-     *
-     * @var bool
-     */
-    protected $visible;
-
-    /**
-     * - true (default): The content of this section must be kept together.
-     * - false (applicable only for visible=”false”): The content in this section can be mingled with the content of the surrounding section
-     *
-     * @var bool
-     */
-    protected $keepTogether;
-
-    //endregion
-
     /**
      * @var Selection
      */
@@ -84,4 +59,18 @@ class AssessmentSection
      * @var AssessmentSection
      */
     protected $assessmentSection;
+
+    /**
+     * @return array
+     */
+    protected function bindAttributesToTypes()
+    {
+        return array(
+            'identifier' => new StringDataType(),
+            'required' => new BooleanDataType(),
+            'title' => new StringDataType(),
+            'visible' => new BooleanDataType(),
+            'keepTogether' => new BooleanDataType(true),
+        );
+    }
 }

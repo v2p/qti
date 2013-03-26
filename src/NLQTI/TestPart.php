@@ -7,46 +7,23 @@
 
 namespace NLQTI;
 
+use NLQTI\Base\AbstractModel;
+use NLQTI\DataType\NavigationModeDataType;
+use NLQTI\DataType\StringDataType;
+use NLQTI\DataType\SubmissionModeDataType;
+
 /**
  * Class TestPart
  * The first level for QTI tests
  *
  * @package NLQTI
+ *
+ * @property string $identifier
+ * @property string $navigationMode
+ * @property string $submissionMode
  */
-class TestPart
+class TestPart extends AbstractModel
 {
-    //region Attributes
-    /**
-     * @var string
-     */
-    protected $identifier;
-
-    /**
-     * Values:
-     * - linear: The learner is allowed to handle the items ordered only. He/she is not allowed to navigate between
-     * items at random.
-     *
-     * - nonlinear: The learner is allowed to navigate between items at random
-     *
-     * @var string
-     */
-    protected $navigationMode;
-
-    /**
-     * Values:
-     * - individual: The results of an item are handled when finishing the item
-     *
-     * - simultaneous: The results of all items are handled all together at the end of the test
-     *
-     * Watch out: simultaneous mode also means that feedback on item level will not occur! All results
-     * processing, including feedback handling, is postponed until the end of the test.
-     *
-     * @var string
-     */
-    protected $submissionMode;
-
-    //endregion
-
     /**
      * @var ItemSessionControl[]
      */
@@ -56,4 +33,16 @@ class TestPart
      * @var AssessmentSection
      */
     protected $assessmentSection;
+
+    /**
+     * @return array
+     */
+    protected function bindAttributesToTypes()
+    {
+        return array(
+            'identifier' => new StringDataType(),
+            'navigationMode' => new NavigationModeDataType(),
+            'submissionMode' => new SubmissionModeDataType(),
+        );
+    }
 }

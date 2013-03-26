@@ -7,6 +7,9 @@
 
 namespace NLQTI;
 
+use NLQTI\Base\AbstractModel;
+use NLQTI\DataType\String256DataType;
+use NLQTI\DataType\StringDataType;
 use NLQTI\Declaration\OutcomeDeclaration;
 
 /**
@@ -14,33 +17,14 @@ use NLQTI\Declaration\OutcomeDeclaration;
  * A QTI test is a separate XML document for which the root element is always <assessmentTest>
  *
  * @package NLQTI
+ *
+ * @property string $identifier
+ * @property string $title
+ * @property string $toolName
+ * @property string $toolVersion
  */
-class AssessmentTest
+class AssessmentTest extends AbstractModel
 {
-    //region Attributes
-
-    /**
-     * @var string
-     */
-    protected $identifier;
-
-    /**
-     * @var string
-     */
-    protected $title;
-
-    /**
-     * @var string
-     */
-    protected $toolName;
-
-    /**
-     * @var string
-     */
-    protected $toolVersion;
-
-    //endregion
-
     /**
      * @var OutcomeDeclaration[]
      */
@@ -66,4 +50,16 @@ class AssessmentTest
      */
     protected $testFeedback;
 
+    /**
+     * @return array
+     */
+    protected function bindAttributesToTypes()
+    {
+        return array(
+            'identifier' => new StringDataType(),
+            'title' => new StringDataType(),
+            'toolName' => new String256DataType(),
+            'toolVersion' => new String256DataType(),
+        );
+    }
 }

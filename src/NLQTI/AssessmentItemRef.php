@@ -9,35 +9,22 @@
 
 namespace NLQTI;
 
+use NLQTI\Base\AbstractModel;
+use NLQTI\DataType\BooleanDataType;
+use NLQTI\DataType\StringDataType;
+use NLQTI\DataType\UriDataType;
+
 /**
  * Class AssessmentItemRef
  *
  * @package NLQTI
+ *
+ * @property string $identifier
+ * @property bool $required Meaning: When doing a random pre-selection this section must always be selected.
+ * @property string $href Reference to the item
  */
-class AssessmentItemRef
+class AssessmentItemRef extends AbstractModel
 {
-    //region Attribures
-    /**
-     * @var string
-     */
-    protected $identifier;
-
-    /**
-     * Meaning: When doing a random pre-selection this section must always be selected.
-     *
-     * @var bool
-     */
-    protected $required;
-
-    /**
-     * Reference to the item
-     *
-     * @var string
-     */
-    protected $href;
-
-    //endregion
-
     /**
      * @var ItemSessionControl[]
      */
@@ -52,4 +39,16 @@ class AssessmentItemRef
      * @var Weight
      */
     protected $weight;
+
+    /**
+     * @return array
+     */
+    protected function bindAttributesToTypes()
+    {
+        return array(
+            'identifier' => new StringDataType(),
+            'required' => new BooleanDataType(),
+            'href' => new UriDataType(),
+        );
+    }
 }
