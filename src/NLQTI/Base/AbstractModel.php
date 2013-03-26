@@ -9,6 +9,7 @@ namespace NLQTI\Base;
 
 use NLQTI\Exception\AttributeNotFoundException;
 use NLQTI\Exception\DataTypeMustBeSpecifiedException;
+use NLQTI\Exception\WrongTypeOfChildItemException;
 
 /**
  * Class AbstractModel
@@ -23,7 +24,7 @@ abstract class AbstractModel
     private $attributes;
 
     /**
-     * @var AbstractModel[]
+     * @var array
      */
     private $children;
 
@@ -31,6 +32,21 @@ abstract class AbstractModel
      * @return array
      */
     abstract protected function bindAttributesToTypes();
+
+    /**
+     * @return array
+     */
+    abstract protected function getChildrenConfiguration();
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    private function isAttributeExists($name)
+    {
+        return isset($this->attributes[$name]);
+    }
 
     /**
      * @param $name
@@ -41,7 +57,7 @@ abstract class AbstractModel
      */
     private function getAttribute($name)
     {
-        if (!isset($this->attributes[$name])) {
+        if (!$this->isAttributeExists($name)) {
             throw new AttributeNotFoundException();
         }
 
@@ -97,5 +113,62 @@ abstract class AbstractModel
     public function __set($name, $value)
     {
         $this->setAttributeValue($name, $value);
+    }
+
+    /**
+     * @return AbstractDataType[]
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    private function isChildrenOfTypeExists($type)
+    {
+        return isset($this->children[$type]);
+    }
+
+    /**
+     * @param $object
+     *
+     * @throws WrongTypeOfChildItemException
+     */
+    private function addChild($object)
+    {
+        if (!$object instanceof AbstractModel) {
+            throw new WrongTypeOfChildItemException();
+        }
+
+        $className = get_class($object);
+
+        if (!$this->isChildrenOfTypeExists($className)) {
+            $this->children[$className] = array();
+        }
+
+        $this->children[] = $object;
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return AbstractModel[]
+     */
+    protected function getChildrenOfType($type)
+    {
+        if ($this->isChildrenOfTypeExists($type)) {
+            return array();
+        }
+
+        return $this->children[$type];
+    }
+
+    public function getChildren()
+    {
+        return $this->children;
     }
 }
