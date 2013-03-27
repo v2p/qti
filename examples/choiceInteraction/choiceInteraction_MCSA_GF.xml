@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="choiceInteraction_MCSA_GF" title="Interaction type: choiceInteraction (MCSA); Correct/Incorrect"
+  adaptive="false" timeDependent="false" toolName="NLQTI" toolVersion="1.0">
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="identifier">
+    <correctResponse>
+      <value>C</value>
+    </correctResponse>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <!-- -->
+  <itemBody>
+    <p>Welk land grenst in het oosten aan Nederland?</p>
+    <choiceInteraction responseIdentifier="RESPONSE" shuffle="true" maxChoices="1">
+      <prompt>Maak een keuze:</prompt>
+      <simpleChoice identifier="A">België</simpleChoice>
+      <simpleChoice identifier="B">Oostenrijk</simpleChoice>
+      <simpleChoice identifier="C">Duitsland</simpleChoice>
+      <simpleChoice identifier="D">Spanje</simpleChoice>
+    </choiceInteraction>
+  </itemBody>
+  <!-- -->
+  <responseProcessing template="http://www.edustandaard.nl/nl-qti/1/rptemplates/RPTEMPLATE_GF"
+    templateLocation="../../RPTemplates/RPTEMPLATE_GF.xml"/>
+  <!-- -->
+</assessmentItem>

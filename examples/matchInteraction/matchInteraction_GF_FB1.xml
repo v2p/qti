@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="matchInteraction_GF_FB1"
+  title="Interaction type: matchInteraction; Correct/Incorrect; Feedback" adaptive="false"
+  timeDependent="false" toolName="NLQTI" toolVersion="1.0" xml:lang="en">
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+    <correctResponse>
+      <value>C R</value>
+      <value>D M</value>
+      <value>L M</value>
+      <value>P T</value>
+    </correctResponse>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <!-- -->
+  <itemBody>
+    <matchInteraction responseIdentifier="RESPONSE" shuffle="true" maxAssociations="0">
+      <prompt>Match the following characters to the Shakespeare play they appeared in:</prompt>
+      <simpleMatchSet>
+        <simpleAssociableChoice identifier="C" matchMax="1">Capulet</simpleAssociableChoice>
+        <simpleAssociableChoice identifier="D" matchMax="1">Demetrius</simpleAssociableChoice>
+        <simpleAssociableChoice identifier="L" matchMax="1">Lysander</simpleAssociableChoice>
+        <simpleAssociableChoice identifier="P" matchMax="1">Prospero</simpleAssociableChoice>
+      </simpleMatchSet>
+      <simpleMatchSet>
+        <simpleAssociableChoice identifier="M" matchMax="4">A Midsummer-Night's
+          Dream</simpleAssociableChoice>
+        <simpleAssociableChoice identifier="R" matchMax="4">Romeo and
+          Juliet</simpleAssociableChoice>
+        <simpleAssociableChoice identifier="T" matchMax="4">The Tempest</simpleAssociableChoice>
+      </simpleMatchSet>
+    </matchInteraction>
+  </itemBody>
+  <!-- -->
+  <responseProcessing template="http://www.edustandaard.nl/nl-qti/1/rptemplates/RPTEMPLATE_GF"
+    templateLocation="../../RPTemplates/RPTEMPLATE_GF.xml"/>
+  <!-- -->
+</assessmentItem>

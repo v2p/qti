@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="associateInteraction_GF" title="Interaction type: associateInteraction; Correct/Incorrect"
+  adaptive="false" timeDependent="false" toolName="NLQTI" toolVersion="1.0">
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="pair">
+    <correctResponse>
+      <value>A B</value>
+      <value>C D</value>
+      <value>E F</value>
+    </correctResponse>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <!-- -->
+  <itemBody>
+    <associateInteraction responseIdentifier="RESPONSE" shuffle="true" maxAssociations="3">
+      <prompt>Wat hoort bij elkaar?</prompt>
+      <simpleAssociableChoice identifier="A" matchMax="1" matchMin="1"
+        >Kleur</simpleAssociableChoice>
+      <simpleAssociableChoice identifier="B" matchMax="1" matchMin="1"
+        >Blauw</simpleAssociableChoice>
+      <simpleAssociableChoice identifier="C" matchMax="1" matchMin="1"
+        >Gevoel</simpleAssociableChoice>
+      <simpleAssociableChoice identifier="D" matchMax="1" matchMin="1">Boos</simpleAssociableChoice>
+      <simpleAssociableChoice identifier="E" matchMax="1" matchMin="1"
+        >Cijfer</simpleAssociableChoice>
+      <simpleAssociableChoice identifier="F" matchMax="1" matchMin="1">Drie</simpleAssociableChoice>
+      <!-- -->
+      <!-- Teaser -->
+      <simpleAssociableChoice identifier="G" matchMax="1" matchMin="1"
+        >Zwaar</simpleAssociableChoice>
+    </associateInteraction>
+  </itemBody>
+  <!-- -->
+  <responseProcessing template="http://www.edustandaard.nl/nl-qti/1/rptemplates/RPTEMPLATE_GF"
+    templateLocation="../../RPTemplates/RPTEMPLATE_GF.xml"/>
+  <!-- -->
+</assessmentItem>

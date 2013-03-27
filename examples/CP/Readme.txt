@@ -1,0 +1,1 @@
+This directory contains an example of a NLQTI CP. All example tests and items are included.

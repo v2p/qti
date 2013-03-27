@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="inlineChoiceInteraction_GF_FB1"
+  title="Interaction type: inlineChoiceInteraction; Correct/Incorrect; Feedback" adaptive="false"
+  timeDependent="false" toolName="NLQTI" toolVersion="1.0">
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE_01" cardinality="single" baseType="identifier">
+    <correctResponse>
+      <value>R</value>
+    </correctResponse>
+  </responseDeclaration>
+  <responseDeclaration identifier="RESPONSE_02" cardinality="single" baseType="identifier">
+    <correctResponse>
+      <value>W</value>
+    </correctResponse>
+  </responseDeclaration>
+  <responseDeclaration identifier="RESPONSE_03" cardinality="single" baseType="identifier">
+    <correctResponse>
+      <value>B</value>
+    </correctResponse>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <outcomeDeclaration identifier="FEEDBACK" cardinality="single" baseType="identifier"/>
+  <!-- -->
+  <itemBody>
+    <p>Wat zijn de kleuren van de Nederlandse vlag?</p>
+    <p>De bovenste baan is <inlineChoiceInteraction responseIdentifier="RESPONSE_01" shuffle="false"
+        required="true">
+        <inlineChoice identifier="R">Rood</inlineChoice>
+        <inlineChoice identifier="B">Blauw</inlineChoice>
+        <inlineChoice identifier="W">Wit</inlineChoice>
+        <inlineChoice identifier="P">Paars</inlineChoice>
+      </inlineChoiceInteraction></p>
+    <p>De middelste baan is <inlineChoiceInteraction responseIdentifier="RESPONSE_02"
+        shuffle="false" required="true">
+        <inlineChoice identifier="R">Rood</inlineChoice>
+        <inlineChoice identifier="B">Blauw</inlineChoice>
+        <inlineChoice identifier="W">Wit</inlineChoice>
+        <inlineChoice identifier="P">Paars</inlineChoice>
+      </inlineChoiceInteraction></p>
+    <p>De onderste baan is <inlineChoiceInteraction responseIdentifier="RESPONSE_03" shuffle="false"
+        required="true">
+        <inlineChoice identifier="R">Rood</inlineChoice>
+        <inlineChoice identifier="B">Blauw</inlineChoice>
+        <inlineChoice identifier="W">Wit</inlineChoice>
+        <inlineChoice identifier="P">Paars</inlineChoice>
+      </inlineChoiceInteraction></p>
+  </itemBody>
+  <!-- -->
+  <responseProcessing>
+    <responseCondition>
+      <responseIf>
+        <and>
+          <match>
+            <variable identifier="RESPONSE_01"/>
+            <correct identifier="RESPONSE_01"/>
+          </match>
+          <match>
+            <variable identifier="RESPONSE_02"/>
+            <correct identifier="RESPONSE_02"/>
+          </match>
+          <match>
+            <variable identifier="RESPONSE_03"/>
+            <correct identifier="RESPONSE_03"/>
+          </match>
+        </and>
+        <setOutcomeValue identifier="SCORE">
+          <baseValue baseType="float">1.0</baseValue>
+        </setOutcomeValue>
+        <setOutcomeValue identifier="FEEDBACK">
+          <baseValue baseType="identifier">ANSWER_CORRECT</baseValue>
+        </setOutcomeValue>
+      </responseIf>
+      <responseElse>
+        <setOutcomeValue identifier="SCORE">
+          <baseValue baseType="float">0.0</baseValue>
+        </setOutcomeValue>
+        <setOutcomeValue identifier="FEEDBACK">
+          <baseValue baseType="identifier">FAILURE</baseValue>
+        </setOutcomeValue>
+      </responseElse>
+    </responseCondition>
+  </responseProcessing>
+  <!-- -->
+  <modalFeedback outcomeIdentifier="FEEDBACK" identifier="ANSWER_CORRECT" showHide="show">Dat is
+    goed</modalFeedback>
+  <modalFeedback outcomeIdentifier="FEEDBACK" identifier="FAILURE" showHide="show">Dat is niet
+    goed</modalFeedback>
+  <!-- -->
+</assessmentItem>

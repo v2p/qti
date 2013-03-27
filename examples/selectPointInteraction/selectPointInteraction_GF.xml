@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="selectPointInteraction_GF"
+  title="Interaction type: selectPointInteraction; Correct/Incorrect" adaptive="false"
+  timeDependent="false" toolName="NLQTI" toolVersion="1.0">
+  <!-- 
+    To prevent the learner to have to click at exactly the right spot:
+    - Add an <areaMapping> to the <responseDeclaration> that gioves you 1.0 points when clicking 
+      inside the area.
+    - Refernce the RPTEMPLATE_POINT_SCORE response processing template to enable this <areaMapping>
+    So we are using a RP template meant for scoring, but in fact this is a correct/incorrect 
+    situation!
+  -->
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="point">
+    <correctResponse>
+      <value>102 113</value>
+    </correctResponse>
+    <areaMapping defaultValue="0.0">
+      <areaMapEntry shape="circle" coords="102,113,16" mappedValue="1.0"/>
+    </areaMapping>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <!-- -->
+  <itemBody>
+    <selectPointInteraction responseIdentifier="RESPONSE" maxChoices="1">
+      <prompt>Waar ligt Edinburgh?</prompt>
+      <object type="image/png" width="196" height="280" data="../img/uk.png"/>
+    </selectPointInteraction>
+  </itemBody>
+  <!-- -->
+  <responseProcessing
+    template="http://www.edustandaard.nl/nl-qti/1/rptemplates/RPTEMPLATE_POINT_SCORE"
+    templateLocation="../../RPTemplates/RPTEMPLATE_POINT_SCORE.xml"/>
+  <!-- -->
+</assessmentItem>

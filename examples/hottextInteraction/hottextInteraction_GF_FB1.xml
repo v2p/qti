@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="hottextInteraction_GF_FB1"
+  title="Interaction type: hottextInteraction; Correct/Incorrect; Feedback" adaptive="false"
+  timeDependent="false" toolName="NLQTI" toolVersion="1.0">
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="identifier">
+    <correctResponse>
+      <value>B</value>
+      <value>C</value>
+    </correctResponse>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <outcomeDeclaration identifier="FEEDBACK" cardinality="single" baseType="identifier"/>
+  <!-- -->
+  <itemBody>
+    <hottextInteraction responseIdentifier="RESPONSE" maxChoices="1">
+      <prompt>Wijs de spelfout aan:</prompt>
+      <p>Piet <hottext identifier="A">loopt</hottext> naar <hottext identifier="B">scholen</hottext>
+        op zijn nieuwe <hottext identifier="C">schoennen</hottext>.</p>
+    </hottextInteraction>
+  </itemBody>
+  <!-- -->
+  <responseProcessing template="http://www.edustandaard.nl/nl-qti/1/rptemplates/RPTEMPLATE_GF_FB1"
+    templateLocation="../../RPTemplates/RPTEMPLATE_GF_FB1.xml"/>
+  <!-- -->
+  <modalFeedback outcomeIdentifier="FEEDBACK" identifier="ANSWER_CORRECT" showHide="show">Dat is
+    goed</modalFeedback>
+  <modalFeedback outcomeIdentifier="FEEDBACK" identifier="FAILURE" showHide="show">Dat is niet
+    goed</modalFeedback>
+  <!-- -->
+</assessmentItem>

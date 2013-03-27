@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="sliderInteraction_GF" title="Interaction type: sliderInteraction; Correct/Incorrect"
+  adaptive="false" timeDependent="false" toolName="NLQTI" toolVersion="1.0">
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="integer">
+    <correctResponse>
+      <value>75</value>
+    </correctResponse>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <!-- -->
+  <itemBody>
+    <sliderInteraction responseIdentifier="RESPONSE" lowerBound="0" upperBound="100" step="1">
+      <prompt>Hoeveel centimers zitten er in drie-kwart meter?</prompt>
+    </sliderInteraction>
+  </itemBody>
+  <!-- -->
+  <responseProcessing template="http://www.edustandaard.nl/nl-qti/1/rptemplates/RPTEMPLATE_GF"
+    templateLocation="../../RPTemplates/RPTEMPLATE_GF.xml"/>
+  <!-- -->
+</assessmentItem>

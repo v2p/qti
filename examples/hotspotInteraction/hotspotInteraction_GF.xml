@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="hotspotInteraction_GF" title="Interaction type: hotspotInteraction; Correct/Incorrect"
+  adaptive="false" timeDependent="false" toolName="NLQTI" toolVersion="1.0">
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="identifier">
+    <correctResponse>
+      <value>A</value>
+    </correctResponse>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <!-- -->
+  <itemBody>
+    <hotspotInteraction responseIdentifier="RESPONSE" maxChoices="1">
+      <prompt>Wijs het vliegveld van Glasgow aan</prompt>
+      <object type="image/png" width="206" height="280" data="../img/ukair.png"/>
+      <hotspotChoice shape="circle" coords="77,115,8" identifier="A"/>
+      <hotspotChoice shape="circle" coords="118,184,8" identifier="B"/>
+      <hotspotChoice shape="circle" coords="150,235,8" identifier="C"/>
+      <hotspotChoice shape="circle" coords="96,114,8" identifier="D"/>
+    </hotspotInteraction>
+  </itemBody>
+  <!-- -->
+  <responseProcessing template="http://www.edustandaard.nl/nl-qti/1/rptemplates/RPTEMPLATE_GF"
+    templateLocation="../../RPTemplates/RPTEMPLATE_GF.xml"/>
+  <!-- -->
+</assessmentItem>

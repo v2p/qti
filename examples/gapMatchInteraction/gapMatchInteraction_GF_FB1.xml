@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="gapMatchInteraction_GF_FB1"
+  title="Interaction type: gapMatchInteraction; Correct/Incorrect; Feedback" adaptive="false"
+  timeDependent="false" toolName="NLQTI" toolVersion="1.0">
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+    <correctResponse>
+      <value>W1 G2</value>
+      <value>W2 G1</value>
+    </correctResponse>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <outcomeDeclaration identifier="FEEDBACK" cardinality="single" baseType="identifier"/>
+  <!-- -->
+  <itemBody>
+    <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
+      <prompt>Zet de woorden op de juiste plaats:</prompt>
+      <gapText identifier="W1" matchMax="1">wolken</gapText>
+      <gapText identifier="W2" matchMax="1">blauw</gapText>
+      <p>Het was een mooie dag, de hemel was <gap identifier="G1"/>, want er waren geen <gap
+          identifier="G2"/>.</p>
+    </gapMatchInteraction>
+  </itemBody>
+  <!-- -->
+  <responseProcessing template="http://www.edustandaard.nl/nl-qti/1/rptemplates/RPTEMPLATE_GF_FB1"
+    templateLocation="../../RPTemplates/RPTEMPLATE_GF_FB1.xml"/>
+  <!-- -->
+  <modalFeedback outcomeIdentifier="FEEDBACK" identifier="ANSWER_CORRECT" showHide="show">Dat is
+    goed</modalFeedback>
+  <modalFeedback outcomeIdentifier="FEEDBACK" identifier="FAILURE" showHide="show">Dat is niet
+    goed</modalFeedback>
+  <!-- -->
+</assessmentItem>

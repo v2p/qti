@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="extendedTextInteraction" title="Interaction type: extendedTextInteraction"
+  adaptive="false" timeDependent="false" toolName="NLQTI" toolVersion="1.0">
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string"/>
+  <!-- -->
+  <itemBody>
+    <extendedTextInteraction responseIdentifier="RESPONSE" expectedLength="500" expectedLines="5">
+      <prompt>Beschrijf de route die je dagelijks naar school aflegt:</prompt>
+    </extendedTextInteraction>
+  </itemBody>
+  <!-- -->
+</assessmentItem>

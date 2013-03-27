@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="orderInteraction_GF_FB1"
+  title="Interaction type: orderInteraction; Correct/Incorrect; Feedback" adaptive="false"
+  timeDependent="false" toolName="NLQTI" toolVersion="1.0">
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE" cardinality="ordered" baseType="identifier">
+    <correctResponse>
+      <value>A</value>
+      <value>C</value>
+      <value>B</value>
+    </correctResponse>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <outcomeDeclaration identifier="FEEDBACK" cardinality="single" baseType="identifier"/>
+  <!-- -->
+  <itemBody>
+    <orderInteraction responseIdentifier="RESPONSE" shuffle="false">
+      <prompt>Zet de volgende steden op volgorde van noord naar zuid:</prompt>
+      <simpleChoice identifier="A">Caïro</simpleChoice>
+      <simpleChoice identifier="B">Stockholm</simpleChoice>
+      <simpleChoice identifier="C">Parijs</simpleChoice>
+    </orderInteraction>
+  </itemBody>
+  <!-- -->
+  <responseProcessing template="http://www.edustandaard.nl/nl-qti/1/rptemplates/RPTEMPLATE_GF_FB1"
+    templateLocation="../../RPTemplates/RPTEMPLATE_GF_FB1.xml"/>
+  <!-- -->
+  <modalFeedback outcomeIdentifier="FEEDBACK" identifier="ANSWER_CORRECT" showHide="show">Dat is
+    goed</modalFeedback>
+  <modalFeedback outcomeIdentifier="FEEDBACK" identifier="FAILURE" showHide="show">Dat is niet
+    goed</modalFeedback>
+  <!-- -->
+</assessmentItem>

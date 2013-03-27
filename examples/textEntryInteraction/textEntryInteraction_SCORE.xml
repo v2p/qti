@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="textEntryInteraction_SCORE" title="Interaction type: textEntryInteraction; Score"
+  adaptive="false" timeDependent="false" toolName="NLQTI" toolVersion="1.0">
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE_01" cardinality="single" baseType="string">
+    <correctResponse>
+      <value>groen</value>
+    </correctResponse>
+    <mapping defaultValue="0.0">
+      <mapEntry mapKey="groen" mappedValue="0.5"/>
+      <mapEntry mapKey="Groen" mappedValue="0.5"/>
+      <mapEntry mapKey="GROEN" mappedValue="0.5"/>
+    </mapping>
+  </responseDeclaration>
+  <responseDeclaration identifier="RESPONSE_02" cardinality="single" baseType="string">
+    <correctResponse>
+      <value>geel</value>
+    </correctResponse>
+    <mapping defaultValue="0.0">
+      <mapEntry mapKey="geel" mappedValue="0.5"/>
+      <mapEntry mapKey="Geel" mappedValue="0.5"/>
+      <mapEntry mapKey="GEEL" mappedValue="0.5"/>
+    </mapping>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <!-- -->
+  <itemBody>
+    <p>Maak het gezegde af:</p>
+    <p>Hij ergert zich <textEntryInteraction responseIdentifier="RESPONSE_01" expectedLength="5"/>
+      en <textEntryInteraction responseIdentifier="RESPONSE_02" expectedLength="5"/></p>
+  </itemBody>
+  <!-- -->
+  <responseProcessing>
+    <setOutcomeValue identifier="SCORE">
+      <sum>
+        <mapResponse identifier="RESPONSE_01"/>
+        <mapResponse identifier="RESPONSE_02"/>
+      </sum>
+    </setOutcomeValue>
+    <responseCondition>
+      <responseIf>
+        <gt>
+          <variable identifier="SCORE"/>
+          <baseValue baseType="float">1.0</baseValue>
+        </gt>
+        <setOutcomeValue identifier="SCORE">
+          <baseValue baseType="float">1.0</baseValue>
+        </setOutcomeValue>
+      </responseIf>
+      <responseElseIf>
+        <lt>
+          <variable identifier="SCORE"/>
+          <baseValue baseType="float">0.0</baseValue>
+        </lt>
+        <setOutcomeValue identifier="SCORE">
+          <baseValue baseType="float">0.0</baseValue>
+        </setOutcomeValue>
+      </responseElseIf>
+    </responseCondition>
+  </responseProcessing>
+  <!-- -->
+</assessmentItem>

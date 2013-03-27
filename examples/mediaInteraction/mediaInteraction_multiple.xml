@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="mediaInteraction_multiple" title="Interaction type: mediaInteraction (meerdere)"
+  adaptive="false" timeDependent="false" toolName="NLQTI" toolVersion="1.0">
+  <!-- -->
+  <responseDeclaration identifier="MEDIA_01" cardinality="single" baseType="string"/>
+  <responseDeclaration identifier="MEDIA_02" cardinality="single" baseType="string"/>
+  <!-- -->
+  <itemBody>
+    <mediaInteraction responseIdentifier="MEDIA_01" autostart="false">
+      <object data="../img/voorbeeld.mp3" type="audio/mpeg"/>
+    </mediaInteraction>
+    <!-- -->
+    <mediaInteraction responseIdentifier="MEDIA_02" autostart="false">
+      <object data="../img/voorbeeld2.mp3" type="audio/mpeg"/>
+    </mediaInteraction>
+  </itemBody>
+  <!-- -->
+</assessmentItem>

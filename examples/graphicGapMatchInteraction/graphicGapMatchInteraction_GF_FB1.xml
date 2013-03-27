@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="graphicGapMatchInteraction_GF_FB1"
+  title="Interaction type: graphicGapMatchInteraction; Correct/Incorrect; Feedback" adaptive="false"
+  timeDependent="false" toolName="NLQTI" toolVersion="1.0" xml:lang="en">
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+    <correctResponse>
+      <value>GLA A</value>
+      <value>EDI B</value>
+      <value>MAN C</value>
+    </correctResponse>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <outcomeDeclaration identifier="FEEDBACK" cardinality="single" baseType="identifier"/>
+  <!-- -->
+  <itemBody>
+    <p>The International Air Transport Association assigns three-letter codes to identify airports
+      worldwide. For example, London Heathrow has code LHR.</p>
+    <graphicGapMatchInteraction responseIdentifier="RESPONSE">
+      <prompt>Some of the labels on the following diagram are missing: can you identify the correct
+        three-letter codes for the unlabelled airports?</prompt>
+      <object type="image/png" data="../img/ukairtags.png" width="206" height="280"/>
+      <gapImg identifier="EDI" matchMax="1" matchMin="1">
+        <object type="image/png" data="../img/EDI.png" width="14" height="9"/>
+      </gapImg>
+      <gapImg identifier="GLA" matchMax="1" matchMin="1">
+        <object type="image/png" data="../img/GLA.png" width="17" height="9"/>
+      </gapImg>
+      <gapImg identifier="MAN" matchMax="1" matchMin="1">
+        <object type="image/png" data="../img/MAN.png" width="21" height="9"/>
+      </gapImg>
+      <associableHotspot identifier="A" matchMax="1" matchMin="1" shape="rect"
+        coords="12,108,39,121"/>
+      <associableHotspot identifier="B" matchMax="1" matchMin="1" shape="rect"
+        coords="128,103,155,126"/>
+      <associableHotspot identifier="C" matchMax="1" matchMin="1" shape="rect"
+        coords="66,165,93,178"/>
+    </graphicGapMatchInteraction>
+  </itemBody>
+  <!-- -->
+  <responseProcessing template="http://www.edustandaard.nl/nl-qti/1/rptemplates/RPTEMPLATE_GF_FB1"
+    templateLocation="../../RPTemplates/RPTEMPLATE_GF_FB1.xml"/>
+  <!-- -->
+  <modalFeedback outcomeIdentifier="FEEDBACK" identifier="ANSWER_CORRECT" showHide="show">Dat is
+    goed</modalFeedback>
+  <modalFeedback outcomeIdentifier="FEEDBACK" identifier="FAILURE" showHide="show">Dat is niet
+    goed</modalFeedback>
+  <!-- -->
+</assessmentItem>

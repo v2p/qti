@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentTest xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="assessmentTest_SCORE" title="Example test + Score">
+  <!-- -->
+  <!-- Outcome declaration: -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <!-- -->
+  <!-- Time limt for the full test (in seconds): -->
+  <timeLimits maxTime="600"/>
+  <!-- -->
+  <!-- testPart: -->
+  <testPart identifier="TestPart01" navigationMode="nonlinear" submissionMode="individual">
+    <itemSessionControl allowComment="true" allowReview="true" maxAttempts="3" allowSkipping="true"
+      showFeedback="true" showSolution="true" validateResponses="true"/>
+    <!-- -->
+    <!-- Main assessment section: -->
+    <assessmentSection identifier="HoofdAssessmentSection" title="Hoofd sectie" visible="true">
+      <selection select="3"/>
+      <ordering shuffle="true"/>
+      <!-- -->
+      <!-- Question reference: -->
+      <assessmentItemRef identifier="Question01"
+        href="../choiceInteraction/choiceInteraction_MCMA_GF.xml">
+        <weight identifier="WEIGHT" value="2">2</weight>
+      </assessmentItemRef>
+      <!-- -->
+      <!-- Question reference: -->
+      <assessmentItemRef identifier="Question02"
+        href="../choiceInteraction/choiceInteraction_MCMA_SCORE.xml">
+        <weight identifier="WEIGHT" value="1">1</weight>
+      </assessmentItemRef>
+      <!-- -->
+      <!-- Question reference: -->
+      <assessmentItemRef identifier="Question03"
+        href="../choiceInteraction/choiceInteraction_MCSA_GF_FB1.xml">
+        <weight identifier="WEIGHT" value="2">2</weight>
+      </assessmentItemRef>
+      <!-- -->
+      <!-- Sub assessment section: -->
+      <assessmentSection identifier="Subsection01" title="Sub sectie 1" visible="false"
+        keepTogether="true">
+        <!-- -->
+        <!-- Question reference: -->
+        <assessmentItemRef identifier="Question04"
+          href="../choiceInteraction/choiceInteraction_MCMA_SCORE.xml">
+          <weight identifier="WEIGHT" value="1">1</weight>
+        </assessmentItemRef>
+        <!-- -->
+        <!-- Question reference: -->
+        <assessmentItemRef identifier="Question05"
+          href="../choiceInteraction/choiceInteraction_MCSA_GF_FB1.xml">
+          <weight identifier="WEIGHT" value="2">2</weight>
+        </assessmentItemRef>
+        <!-- -->
+      </assessmentSection>
+      <!-- -->
+    </assessmentSection>
+    <!-- -->
+  </testPart>
+  <!-- -->
+  <!-- Outcome processing: -->
+  <outcomeProcessing>
+    <outcomeCondition>
+      <outcomeIf>
+        <or>
+          <isNull>
+            <outcomeMaximum outcomeIdentifier="SCORE" weightIdentifier="WEIGHT"/>
+          </isNull>
+          <equal toleranceMode="exact">
+            <sum>
+              <outcomeMaximum outcomeIdentifier="SCORE" weightIdentifier="WEIGHT"/>
+            </sum>
+            <baseValue baseType="float">0.0</baseValue>
+          </equal>
+        </or>
+        <setOutcomeValue identifier="SCORE">
+          <baseValue baseType="float">1.0</baseValue>
+        </setOutcomeValue>
+      </outcomeIf>
+      <outcomeElse>
+        <setOutcomeValue identifier="SCORE">
+          <divide>
+            <sum>
+              <testVariables variableIdentifier="SCORE" weightIdentifier="WEIGHT"/>
+            </sum>
+            <sum>
+              <outcomeMaximum outcomeIdentifier="SCORE" weightIdentifier="WEIGHT"/>
+            </sum>
+          </divide>
+        </setOutcomeValue>
+      </outcomeElse>
+    </outcomeCondition>
+  </outcomeProcessing>
+  <!-- -->
+</assessmentTest>

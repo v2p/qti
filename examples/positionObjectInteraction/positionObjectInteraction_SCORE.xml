@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="positionObjectInteraction_SCORE" title="Interaction type: textEntryInteraction; Score"
+  adaptive="false" timeDependent="false" toolName="NLQTI" toolVersion="1.0" xml:lang="en">
+  <!-- -->
+  <!-- 
+    It is almost impossible for this interaction type to create a correct/incorrect situation:
+    The learner must click on exactly the right spot. The only way to ease this is to us an 
+    <areaMapping> element.
+  -->
+  <responseDeclaration identifier="RESPONSE_EDI" cardinality="single" baseType="point">
+    <correctResponse>
+      <value>96 114</value>
+    </correctResponse>
+    <areaMapping defaultValue="0">
+      <areaMapEntry shape="circle" coords="96,114,12" mappedValue="0.5"/>
+    </areaMapping>
+  </responseDeclaration>
+  <responseDeclaration identifier="RESPONSE_MAN" cardinality="single" baseType="point">
+    <correctResponse>
+      <value>118 184</value>
+    </correctResponse>
+    <areaMapping defaultValue="0">
+      <areaMapEntry shape="circle" coords="118,184,12" mappedValue="0.5"/>
+    </areaMapping>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <!-- -->
+  <itemBody>
+    <p>When flying into the UK, you may well find yourself landing at Edinburgh or Manchester; but
+      where are these airports actually located?</p>
+    <positionObjectStage>
+      <object type="image/png" data="../img/uk.png" width="206" height="280"/>
+      <positionObjectInteraction responseIdentifier="RESPONSE_EDI" maxChoices="1">
+        <object type="image/png" data="../img/EDI.png"/>
+      </positionObjectInteraction>
+      <positionObjectInteraction responseIdentifier="RESPONSE_MAN" maxChoices="1">
+        <object type="image/png" data="../img/MAN.png"/>
+      </positionObjectInteraction>
+    </positionObjectStage>
+  </itemBody>
+  <!-- -->
+  <responseProcessing>
+    <setOutcomeValue identifier="SCORE">
+      <sum>
+        <mapResponsePoint identifier="RESPONSE_EDI"/>
+        <mapResponsePoint identifier="RESPONSE_MAN"/>
+      </sum>
+    </setOutcomeValue>
+  </responseProcessing>
+  <!-- -->
+</assessmentItem>

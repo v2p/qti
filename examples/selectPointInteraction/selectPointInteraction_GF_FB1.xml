@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../../Validation/imsqti_v2p1_NLQTI_v1p0.xsd"
+  identifier="selectPointInteraction_GF_FB1"
+  title="Interaction type: selectPointInteraction; Correct/Incorrect; Feedback" adaptive="false"
+  timeDependent="false" toolName="NLQTI" toolVersion="1.0">
+  <!-- 
+    To prevent the learner to have to click at exactly the right spot:
+    - Add an <areaMapping> to the <responseDeclaration> that gioves you 1.0 points when clicking 
+      inside the area.
+    - Refernce the RPTEMPLATE_POINT_SCORE response processing template to enable this <areaMapping>
+    So we are using a RP template meant for scoring, but in fact this is a correct/incorrect 
+    situation! The same applies to guiding the feedback: We have to use a scoring mecahnism here 
+    also.
+  -->
+  <!-- -->
+  <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="point">
+    <correctResponse>
+      <value>102 113</value>
+    </correctResponse>
+    <!-- Om te voorkomen dat leerlingen heel exact op het juiste punt moeten klikken, kun je
+      het eenvoudigste met een <areaMapping> werken. Deze moet dan een score van 1.0 teruggeven
+      als het antwoord correct is. -->
+    <areaMapping defaultValue="0.0">
+      <areaMapEntry shape="circle" coords="102,113,16" mappedValue="1.0"/>
+    </areaMapping>
+  </responseDeclaration>
+  <!-- -->
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMinimum="0.0"
+    normalMaximum="1.0"/>
+  <outcomeDeclaration identifier="FEEDBACK" cardinality="single" baseType="identifier"/>
+  <outcomeDeclaration identifier="FEEDBACK_THRESHOLD" cardinality="single" baseType="float">
+    <defaultValue>
+      <value baseType="float">0.75</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <!-- -->
+  <itemBody>
+    <selectPointInteraction responseIdentifier="RESPONSE" maxChoices="1">
+      <prompt>Waar ligt Edinburgh?</prompt>
+      <object type="image/png" width="196" height="280" data="../img/uk.png"/>
+    </selectPointInteraction>
+  </itemBody>
+  <!-- -->
+  <responseProcessing
+    template="http://www.edustandaard.nl/nl-qti/1/rptemplates/RPTEMPLATE_POINT_SCORE_FB1"
+    templateLocation="../../RPTemplates/RPTEMPLATE_POINT_SCORE_FB1.xml"/>
+  <!-- -->
+  <modalFeedback outcomeIdentifier="FEEDBACK" identifier="ANSWER_CORRECT" showHide="show">Dat is
+    goed</modalFeedback>
+  <modalFeedback outcomeIdentifier="FEEDBACK" identifier="FAILURE" showHide="show">Dat is niet
+    goed</modalFeedback>
+  <!-- -->
+</assessmentItem>
