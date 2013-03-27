@@ -22,33 +22,34 @@ use NLQTI\DataType\UriDataType;
  * @property string $identifier
  * @property bool $required Meaning: When doing a random pre-selection this section must always be selected.
  * @property string $href Reference to the item
+ *
+ * @property ItemSessionControl $itemSessionControl
+ * @property TimeLimits $timeLimits
+ * @property Weight $weight
  */
 class AssessmentItemRef extends AbstractModel
 {
     /**
-     * @var ItemSessionControl[]
+     * @return array
      */
-    protected $itemSessionControl;
-
-    /**
-     * @var TimeLimits[]
-     */
-    protected $timeLimits;
-
-    /**
-     * @var Weight
-     */
-    protected $weight;
+    protected function initAttributesConfiguration()
+    {
+        return array(
+            'identifier' => array(new StringDataType(), self::SINGLE_MANDATORY),
+            'required' => array(new BooleanDataType(), self::SINGLE_OPTIONAL),
+            'href' => array(new UriDataType(), self::SINGLE_MANDATORY),
+        );
+    }
 
     /**
      * @return array
      */
-    protected function bindAttributesToTypes()
+    protected function initChildrenConfiguration()
     {
         return array(
-            'identifier' => new StringDataType(),
-            'required' => new BooleanDataType(),
-            'href' => new UriDataType(),
+            'itemSessionControl' => array(ItemSessionControl::getClass(), self::SINGLE_OPTIONAL),
+            'timeLimits' => array(TimeLimits::getClass(), self::SINGLE_OPTIONAL),
+            'weight' => array(Weight::getClass(), self::SINGLE_MANDATORY),
         );
     }
 }

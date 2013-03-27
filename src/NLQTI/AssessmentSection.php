@@ -30,47 +30,39 @@ use NLQTI\DataType\StringDataType;
  * @property bool $keepTogether True (default): The content of this section must be kept together.
  *  False (applicable only for visible=”false”): The content in this section can be mingled with the content of the surrounding section
  *
+ * @property Selection $selection
+ * @property Ordering $ordering
+ * @property RubricBlock[] $rubricBlock
+ * @property AssessmentItemRef[] $assessmentItemRef
+ * @property AssessmentSection[] $assessmentSection
  */
 class AssessmentSection extends AbstractModel
 {
     /**
-     * @var Selection
+     * @return array
      */
-    protected $selection;
-
-    /**
-     * @var Ordering
-     */
-    protected $ordering;
-
-    /**
-     * @var RubricBlock
-     */
-    protected $rubricBlock;
-
-    /**
-     * @var AssessmentItemRef
-     */
-    protected $assessmentItemRef;
-
-    /**
-     * Deeper levels of <assessmentSection>’s is not allowed.
-     *
-     * @var AssessmentSection
-     */
-    protected $assessmentSection;
+    protected function initAttributesConfiguration()
+    {
+        return array(
+            'identifier' => array(new StringDataType(), self::SINGLE_MANDATORY),
+            'required' => array(new BooleanDataType(), self::SINGLE_OPTIONAL),
+            'title' => array(new StringDataType(), self::SINGLE_MANDATORY),
+            'visible' => array(new BooleanDataType(), self::SINGLE_MANDATORY),
+            'keepTogether' => array(new BooleanDataType(true), self::SINGLE_OPTIONAL),
+        );
+    }
 
     /**
      * @return array
      */
-    protected function bindAttributesToTypes()
+    protected function initChildrenConfiguration()
     {
         return array(
-            'identifier' => new StringDataType(),
-            'required' => new BooleanDataType(),
-            'title' => new StringDataType(),
-            'visible' => new BooleanDataType(),
-            'keepTogether' => new BooleanDataType(true),
+            'selection' => array(Selection::getClass(), self::SINGLE_OPTIONAL),
+            'ordering' => array(Ordering::getClass(), self::SINGLE_OPTIONAL),
+            'rubricBlock' => array(RubricBlock::getClass(), self::MULTIPLE_OPTIONAL),
+            'assessmentItemRef' => array(AssessmentItemRef::getClass(), self::MULTIPLE_OPTIONAL),
+            'assessmentSection' => array(AssessmentSection::getClass(), self::MULTIPLE_OPTIONAL),
         );
     }
 }

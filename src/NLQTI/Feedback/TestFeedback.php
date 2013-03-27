@@ -1,23 +1,16 @@
 <?php
 /**
  * Created by JetBrains PhpStorm. 
- * Date: 18.03.13
- * Time: 15:42
+ * Date: 27.03.13
+ * Time: 16:23 
  */
 
-namespace NLQTI\Processing;
+namespace NLQTI\Feedback;
 
 use NLQTI\Base\AbstractModel;
 
-/**
- * Class ResponseProcessing
- * What to do with the result
- *
- * @package NLQTI\Processing
- */
-class ResponseProcessing extends AbstractModel
+class TestFeedback extends AbstractModel
 {
-
     /**
      * @return array
      */

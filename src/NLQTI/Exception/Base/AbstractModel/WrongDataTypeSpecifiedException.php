@@ -5,14 +5,14 @@
  * Time: 15:55
  */
 
-namespace NLQTI\Exception;
+namespace NLQTI\Exception\Base\AbstractModel;
 
 /**
  * Class DataTypeMustBeSpecified
  *
  * @package NLQTI\Exception
  */
-class DataTypeMustBeSpecifiedException extends \Exception
+class WrongDataTypeSpecifiedException extends \Exception
 {
 
 }

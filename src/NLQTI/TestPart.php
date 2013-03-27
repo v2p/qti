@@ -21,28 +21,32 @@ use NLQTI\DataType\SubmissionModeDataType;
  * @property string $identifier
  * @property string $navigationMode
  * @property string $submissionMode
+ *
+ * @property ItemSessionControl $itemSessionControl
+ * @property AssessmentSection $assessmentSection
  */
 class TestPart extends AbstractModel
 {
     /**
-     * @var ItemSessionControl[]
+     * @return array
      */
-    protected $itemSessionControl;
-
-    /**
-     * @var AssessmentSection
-     */
-    protected $assessmentSection;
+    protected function initAttributesConfiguration()
+    {
+        return array(
+            'identifier' => array(new StringDataType(), self::SINGLE_MANDATORY),
+            'navigationMode' => array(new NavigationModeDataType(), self::SINGLE_MANDATORY),
+            'submissionMode' => array(new SubmissionModeDataType(), self::SINGLE_MANDATORY),
+        );
+    }
 
     /**
      * @return array
      */
-    protected function bindAttributesToTypes()
+    protected function initChildrenConfiguration()
     {
         return array(
-            'identifier' => new StringDataType(),
-            'navigationMode' => new NavigationModeDataType(),
-            'submissionMode' => new SubmissionModeDataType(),
+            'assessmentSection' => array(AssessmentSection::getClass(), self::SINGLE_MANDATORY),
+            'itemSessionControl' => array(ItemSessionControl::getClass(), self::SINGLE_OPTIONAL),
         );
     }
 }

@@ -7,9 +7,9 @@
 
 namespace NLQTI\Base;
 
-use NLQTI\Exception\AttributeNotFoundException;
-use NLQTI\Exception\DataTypeMustBeSpecifiedException;
-use NLQTI\Exception\WrongTypeOfChildItemException;
+use NLQTI\Exception\Base\AbstractModel\PropertyIsNotSupportedException;
+use NLQTI\Exception\Base\AbstractModel\WrongDataTypeSpecifiedException;
+use NLQTI\Exception\Base\AbstractModel\WrongTypeOfChildItemException;
 
 /**
  * Class AbstractModel
@@ -19,6 +19,26 @@ use NLQTI\Exception\WrongTypeOfChildItemException;
 abstract class AbstractModel
 {
     /**
+     * Multiplicity of the attributes and child entites:
+     */
+    const SINGLE_MANDATORY = '1'; // 1
+    const SINGLE_OPTIONAL = '?'; // 0 or 1
+    const MULTIPLE_OPTIONAL = '*'; // 0 or more
+    const MULTIPLE_MANDATORY = '+'; // 1 or more
+
+    /**
+     * Order of config properties:
+     */
+
+    // for an attributes;
+    const ATTRIBUTE_DATA_TYPE = 0;
+    const ATTRIBUTE_MULTIPLICITY = 1;
+
+    // for a child entites:
+    const CHILD_ENTITY_CLASS = 0;
+    const CHILD_ENTITY_MULTIPLICITY = 1;
+
+    /**
      * @var AbstractDataType[]
      */
     private $attributes;
@@ -26,149 +46,268 @@ abstract class AbstractModel
     /**
      * @var array
      */
+    private $attributesConfiguration;
+
+    /**
+     * @var array
+     */
     private $children;
 
     /**
-     * @return array
+     * @var array
      */
-    abstract protected function bindAttributesToTypes();
+    private $childrenConfiguration;
 
     /**
      * @return array
      */
-    abstract protected function getChildrenConfiguration();
+    abstract protected function initAttributesConfiguration();
+
+    /**
+     * @return array
+     */
+    abstract protected function initChildrenConfiguration();
+
+    //region Attributes
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    private function isAttributeSupported($name)
+    {
+        return isset($this->attributesConfiguration[$name]);
+    }
+
+    /**
+     * @param string $name
+     * @throws PropertyIsNotSupportedException
+     *
+     * @return array|bool
+     */
+    private function getAttributeConfiguration($name)
+    {
+        if (!$this->isAttributeSupported($name)) {
+            throw new PropertyIsNotSupportedException();
+        }
+
+        return $this->attributesConfiguration[$name];
+    }
 
     /**
      * @param string $name
      *
      * @return bool
      */
-    private function isAttributeExists($name)
+    private function isAttributeDefined($name)
     {
         return isset($this->attributes[$name]);
     }
 
     /**
-     * @param $name
-     *
-     * @throws DataTypeMustBeSpecifiedException
-     * @throws AttributeNotFoundException
-     * @return AbstractDataType
-     */
-    private function getAttribute($name)
-    {
-        if (!$this->isAttributeExists($name)) {
-            throw new AttributeNotFoundException();
-        }
-
-        $dataType = $this->attributes[$name];
-
-        if (!$dataType instanceof AbstractDataType) {
-            throw new DataTypeMustBeSpecifiedException();
-        }
-
-        return $dataType;
-    }
-
-    /**
-     * @param $name
-     * @param $value
-     *
-     * @throws \Exception
-     */
-    private function setAttributeValue($name, $value)
-    {
-        $this->getAttribute($name)->setValue($value);
-    }
-
-    /**
-     * @param $name
-     *
-     * @return mixed
-     */
-    private function getAttributeValue($name)
-    {
-        return $this->getAttribute($name)->getValue();
-    }
-
-    public function __construct()
-    {
-        $this->attributes = $this->bindAttributesToTypes();
-    }
-
-    /**
      * @param string $name
      *
-     * @return mixed
+     * @throws WrongDataTypeSpecifiedException
      */
-    public function __get($name)
+    private function defineAttribute($name)
     {
-        return $this->getAttributeValue($name);
+        $config = $this->getAttributeConfiguration($name);
+
+        /** @var AbstractDataType $dataType */
+        $dataType = $config[self::ATTRIBUTE_DATA_TYPE];
+
+        if (!$dataType instanceof AbstractDataType) {
+            throw new WrongDataTypeSpecifiedException();
+        }
+
+        $this->attributes[$name] = $dataType;
     }
 
     /**
      * @param string $name
      * @param mixed $value
      */
-    public function __set($name, $value)
+    private function setAttributeValue($name, $value)
     {
-        $this->setAttributeValue($name, $value);
+        if (!$this->isAttributeDefined($name)) {
+            $this->defineAttribute($name);
+        }
+
+        $this->attributes[$name]->setValue($value);
     }
 
     /**
-     * @return AbstractDataType[]
+     * @param string $name
+     * @return mixed
      */
-    public function getAttributes()
+    private function getAttributeValue($name)
     {
-        return $this->attributes;
-    }
+        if (!$this->isAttributeDefined($name)) {
+            $this->defineAttribute($name);
+        }
 
+        return $this->attributes[$name]->getValue();
+    }
+    //endregion
+
+    //region Children
     /**
-     * @param string $type
+     * @param string $name
      *
      * @return bool
      */
-    private function isChildrenOfTypeExists($type)
+    private function isChildSupported($name)
     {
-        return isset($this->children[$type]);
+        return isset($this->childrenConfiguration[$name]);
     }
 
     /**
-     * @param $object
+     * @param string $name
+     *
+     * @throws PropertyIsNotSupportedException
+     * @return array
+     */
+    private function getChildConfiguration($name)
+    {
+        if ($this->isChildSupported($name)) {
+            throw new PropertyIsNotSupportedException();
+        }
+
+        return $this->childrenConfiguration[$name];
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    private function isChildDefined($name)
+    {
+        return isset($this->children[$name]);
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    private function isChildIsMultiple($name)
+    {
+        $config = $this->getChildConfiguration($name);
+        $entityMultiplicity = $config[self::CHILD_ENTITY_MULTIPLICITY]; //todo: Check whether this option is specified and correct
+
+        return $entityMultiplicity == self::MULTIPLE_OPTIONAL || $entityMultiplicity == self::MULTIPLE_MANDATORY;
+    }
+
+    /**
+     * @param string $name
      *
      * @throws WrongTypeOfChildItemException
      */
-    private function addChild($object)
+    private function defineChild($name)
     {
-        if (!$object instanceof AbstractModel) {
+        $config = $this->getChildConfiguration($name);
+        $entityClassname = $config[self::CHILD_ENTITY_CLASS];
+
+        /** @var AbstractModel $entity */
+        $entity = new $entityClassname();
+
+        if (!$entity instanceof AbstractModel) {
             throw new WrongTypeOfChildItemException();
         }
 
-        $className = get_class($object);
-
-        if (!$this->isChildrenOfTypeExists($className)) {
-            $this->children[$className] = array();
-        }
-
-        $this->children[] = $object;
+        $this->children[$name] = $this->isChildIsMultiple($name) ? array() : null;
     }
 
     /**
-     * @param string $type
+     * @param string $name
+     * @param AbstractModel $value
      *
-     * @return AbstractModel[]
+     * @throws WrongTypeOfChildItemException
      */
-    protected function getChildrenOfType($type)
+    private function setChildValue($name, $value)
     {
-        if ($this->isChildrenOfTypeExists($type)) {
-            return array();
+        if (!$this->isChildDefined($name)) {
+            $this->defineChild($name);
         }
 
-        return $this->children[$type];
+        $config = $this->getChildConfiguration($name);
+        $expectedClassname = $config[self::CHILD_ENTITY_CLASS];
+
+        if (get_class($value) !== $expectedClassname) {
+            throw new WrongTypeOfChildItemException();
+        }
+
+        if ($this->isChildIsMultiple($name)) {
+            $this->children[$name][] = $value;
+        } else {
+            $this->children = $value;
+        }
     }
 
-    public function getChildren()
+    /**
+     * @param string $name
+     *
+     * @return AbstractModel|AbstractModel[]
+     */
+    private function getChildValue($name)
     {
-        return $this->children;
+        if (!$this->isChildDefined($name)) {
+            $this->defineChild($name);
+        }
+
+        return $this->children[$name];
+    }
+    //endregion
+
+    /**
+     * @return string
+     */
+    public static function getClass()
+    {
+        return get_called_class();
+    }
+
+    public function __construct()
+    {
+        $this->attributesConfiguration = $this->initAttributesConfiguration();
+        $this->childrenConfiguration = $this->initChildrenConfiguration();
+    }
+
+    /**
+     * @param string $name
+     *
+     * @throws PropertyIsNotSupportedException
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        if ($this->isAttributeSupported($name)) {
+            return $this->getAttributeValue($name);
+
+        } elseif ($this->isChildSupported($name)) {
+            return $this->getChildValue($name);
+
+        } else {
+            throw new PropertyIsNotSupportedException();
+        }
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $value
+     *
+     * @throws PropertyIsNotSupportedException
+     */
+    public function __set($name, $value)
+    {
+        if ($this->isAttributeSupported($name)) {
+            $this->setAttributeValue($name, $value);
+
+        } elseif ($this->isChildSupported($name)) {
+            $this->setChildValue($name, $value);
+
+        } else {
+            throw new PropertyIsNotSupportedException();
+        }
     }
 }

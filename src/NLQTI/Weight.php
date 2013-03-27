@@ -9,12 +9,14 @@
 
 namespace NLQTI;
 
+use NLQTI\Base\AbstractModel;
+
 /**
  * Class Weight
  *
  * @package NLQTI
  */
-class Weight
+class Weight extends AbstractModel
 {
     /**
      * @var string
@@ -30,4 +32,20 @@ class Weight
      * @var ContentElement
      */
     protected $contentElement;
+
+    /**
+     * @return array
+     */
+    protected function initAttributesConfiguration()
+    {
+        // TODO: Implement initAttributesConfiguration() method.
+    }
+
+    /**
+     * @return array
+     */
+    protected function initChildrenConfiguration()
+    {
+        // TODO: Implement initChildrenConfiguration() method.
+    }
 }

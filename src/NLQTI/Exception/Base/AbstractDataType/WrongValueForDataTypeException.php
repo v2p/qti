@@ -5,12 +5,12 @@
  * Time: 15:54
  */
 
-namespace NLQTI\Exception;
+namespace NLQTI\Exception\Base\AbstractDataType;
 
 /**
  * Class WrongValueForDataTypeException
  *
- * @package NLQTI\Exception
+ * @package NLQTI\Exception\Base\AbstractDataType
  */
 class WrongValueForDataTypeException extends \Exception
 {

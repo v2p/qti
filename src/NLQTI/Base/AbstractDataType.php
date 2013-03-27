@@ -7,7 +7,7 @@
 
 namespace NLQTI\Base;
 
-use NLQTI\Exception\WrongValueForDataTypeException;
+use NLQTI\Exception\Base\AbstractDataType\WrongValueForDataTypeException;
 
 /**
  * Class AbstractDataType
