@@ -8,6 +8,7 @@
 namespace NLQTI\Declaration;
 
 use NLQTI\Base\AbstractModel;
+use NLQTI\Exception\NotImplementedException;
 
 /**
  * Class OutcomeDeclaration
@@ -23,20 +24,20 @@ use NLQTI\Base\AbstractModel;
 class OutcomeDeclaration extends AbstractModel
 {
     /**
+     * @throws NotImplementedException
      * @return array
      */
     protected function initAttributesConfiguration()
     {
-        return array(
-            'identifier' => array(),
-        );
+        throw new NotImplementedException();
     }
 
     /**
+     * @throws NotImplementedException
      * @return array
      */
     protected function initChildrenConfiguration()
     {
-        return array();
+        throw new NotImplementedException();
     }
 }

@@ -15,6 +15,7 @@ use NLQTI\Exception\Base\AbstractModel\WrongTypeOfChildItemException;
  * Class AbstractModel
  *
  * @package NLQTI\Base
+ *
  */
 abstract class AbstractModel
 {
@@ -37,6 +38,13 @@ abstract class AbstractModel
     // for a child entites:
     const CHILD_ENTITY_CLASS = 0;
     const CHILD_ENTITY_MULTIPLICITY = 1;
+
+    /**
+     * Simple content that stores into element
+     *
+     * @var mixed
+     */
+    protected $elementContent;
 
     /**
      * @var AbstractDataType[]
@@ -309,5 +317,21 @@ abstract class AbstractModel
         } else {
             throw new PropertyIsNotSupportedException();
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getElementContent()
+    {
+        return $this->elementContent;
+    }
+
+    /**
+     * @param mixed $elementContent
+     */
+    public function setElementContent($elementContent)
+    {
+        $this->elementContent = $elementContent;
     }
 }

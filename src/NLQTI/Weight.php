@@ -10,35 +10,37 @@
 namespace NLQTI;
 
 use NLQTI\Base\AbstractModel;
+use NLQTI\DataType\StringDataType;
 
 /**
  * Class Weight
  *
  * @package NLQTI
+ *
+ * @property string $identifier
+ * @property string $value
  */
 class Weight extends AbstractModel
 {
-    /**
-     * @var string
-     */
-    protected $identifier = 'WEIGHT';
+    public function setElementContent($elementContent)
+    {
+        $this->value = $elementContent;
+    }
 
-    /**
-     * @var string
-     */
-    protected $value;
-
-    /**
-     * @var ContentElement
-     */
-    protected $contentElement;
+    public function getElementContent()
+    {
+        return $this->value;
+    }
 
     /**
      * @return array
      */
     protected function initAttributesConfiguration()
     {
-        // TODO: Implement initAttributesConfiguration() method.
+        return array(
+            'identifier' => array(new StringDataType('WEIGHT'), self::SINGLE_MANDATORY),
+            'value' => array(new StringDataType(), self::SINGLE_MANDATORY),
+        );
     }
 
     /**
@@ -46,6 +48,6 @@ class Weight extends AbstractModel
      */
     protected function initChildrenConfiguration()
     {
-        // TODO: Implement initChildrenConfiguration() method.
+        return array();
     }
 }

@@ -5,7 +5,7 @@
  * Time: 16:43
  */
 
-namespace NLQTI\DataType;
+namespace NLQTI\DataType\Enumeration;
 
 use NLQTI\Base\AbstractEnumerationDataType;
 

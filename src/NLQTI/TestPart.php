@@ -8,9 +8,9 @@
 namespace NLQTI;
 
 use NLQTI\Base\AbstractModel;
-use NLQTI\DataType\NavigationModeDataType;
+use NLQTI\DataType\Enumeration\NavigationModeDataType;
+use NLQTI\DataType\Enumeration\SubmissionModeDataType;
 use NLQTI\DataType\StringDataType;
-use NLQTI\DataType\SubmissionModeDataType;
 
 /**
  * Class TestPart

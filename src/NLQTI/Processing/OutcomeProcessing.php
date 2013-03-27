@@ -8,23 +8,26 @@
 namespace NLQTI\Processing;
 
 use NLQTI\Base\AbstractModel;
+use NLQTI\Exception\NotImplementedException;
 
 class OutcomeProcessing extends AbstractModel
 {
 
     /**
+     * @throws NotImplementedException
      * @return array
      */
     protected function initAttributesConfiguration()
     {
-        // TODO: Implement initAttributesConfiguration() method.
+        throw new NotImplementedException();
     }
 
     /**
+     * @throws NotImplementedException
      * @return array
      */
     protected function initChildrenConfiguration()
     {
-        // TODO: Implement initChildrenConfiguration() method.
+        throw new NotImplementedException();
     }
 }

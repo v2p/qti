@@ -15,7 +15,7 @@ use NLQTI\Processing\ResponseProcessing;
 /**
  * Class AssessmentItem
  *
- * <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1" ...>
+ * <assessmentItem ...>
  *   <responseDeclaration ...>
  *   <!-- Information about the answer -->
  *   </responseDeclaration>

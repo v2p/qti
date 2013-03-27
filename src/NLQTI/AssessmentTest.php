@@ -26,10 +26,13 @@ use NLQTI\Processing\OutcomeProcessing;
  * @property string $toolVersion
  *
  * @property TestPart $testPart
- * @property OutcomeDeclaration[] $outcomeDeclaration
  * @property TimeLimits $timeLimits
- * @property OutcomeProcessing $outcomeProcessing
  * @property TestFeedback[] $testFeedback
+ *
+ * Not implemented:
+ * property OutcomeDeclaration[] $outcomeDeclaration
+ * property OutcomeProcessing $outcomeProcessing
+ *
  */
 class AssessmentTest extends AbstractModel
 {
@@ -53,10 +56,11 @@ class AssessmentTest extends AbstractModel
     {
         return array(
             'testPart' => array(TestPart::getClass(), self::SINGLE_MANDATORY),
-            'outcomeDeclaration' => array(OutcomeDeclaration::getClass(), self::MULTIPLE_OPTIONAL),
             'timeLimits' => array(TimeLimits::getClass(), self::SINGLE_OPTIONAL),
-            'outcomeProcessing' => array(OutcomeProcessing::getClass(), self::SINGLE_OPTIONAL),
             'testFeedback' => array(TestFeedback::getClass(), self::MULTIPLE_OPTIONAL),
+
+            /*'outcomeDeclaration' => array(OutcomeDeclaration::getClass(), self::MULTIPLE_OPTIONAL),
+            'outcomeProcessing' => array(OutcomeProcessing::getClass(), self::SINGLE_OPTIONAL),*/
         );
     }
 }
