@@ -1,3 +1,5 @@
+<?php
+$xml = <<<XML
 <outcomeProcessing>
     <outcomeCondition>
         <outcomeIf>
@@ -30,3 +32,4 @@
         </outcomeElse>
     </outcomeCondition>
 </outcomeProcessing>
+XML;

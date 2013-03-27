@@ -43,7 +43,7 @@ abstract class AbstractDataType
         if ($this->isValueValid($value)) {
             $this->value = $value;
         } else {
-            throw new WrongValueForDataTypeException();
+            throw new WrongValueForDataTypeException("Attempt to assign {$value}");
         }
     }
 
