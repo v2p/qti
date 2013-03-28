@@ -7,6 +7,8 @@
 
 namespace NLQTI\Base;
 
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use NLQTI\Exception\Base\AbstractModel\PropertyIsNotSupportedException;
 use NLQTI\Exception\Base\AbstractModel\WrongDataTypeSpecifiedException;
 use NLQTI\Exception\Base\AbstractModel\WrongTypeOfChildItemException;
@@ -67,6 +69,11 @@ abstract class AbstractModel
     private $childrenConfiguration;
 
     /**
+     * @var Logger
+     */
+    private static $logger;
+
+    /**
      * @return array
      */
     abstract protected function initAttributesConfiguration();
@@ -75,6 +82,18 @@ abstract class AbstractModel
      * @return array
      */
     abstract protected function initChildrenConfiguration();
+
+    /**
+     * @return Logger
+     */
+    protected static function getLogger()
+    {
+        if (is_null(self::$logger)) {
+            self::$logger = new Logger('AbstractModel', array(new StreamHandler('php://stdout')));
+        }
+
+        return self::$logger;
+    }
 
     //region Attributes
     /**
@@ -141,6 +160,11 @@ abstract class AbstractModel
             $this->defineAttribute($name);
         }
 
+        self::getLogger()->debug(
+            'Successfully set value to the attribute',
+            array('class' => get_called_class(), 'name' => $name, 'value' => $value)
+        );
+
         $this->attributes[$name]->setValue($value);
     }
 
@@ -177,7 +201,7 @@ abstract class AbstractModel
      */
     private function getChildConfiguration($name)
     {
-        if ($this->isChildSupported($name)) {
+        if (!$this->isChildSupported($name)) {
             throw new PropertyIsNotSupportedException();
         }
 
@@ -248,8 +272,13 @@ abstract class AbstractModel
         if ($this->isChildIsMultiple($name)) {
             $this->children[$name][] = $value;
         } else {
-            $this->children = $value;
+            $this->children[$name] = $value;
         }
+
+        self::getLogger()->debug(
+            'Successfully set value to the child',
+            array('class' => get_called_class(), 'name' => $name, 'value' => $value)
+        );
     }
 
     /**
@@ -308,6 +337,11 @@ abstract class AbstractModel
      */
     public function __set($name, $value)
     {
+        self::getLogger()->debug(
+            'Attempt to set value for the property',
+            array('class' => get_called_class(), 'name' => $name, 'value' => $value)
+        );
+
         if ($this->isAttributeSupported($name)) {
             $this->setAttributeValue($name, $value);
 

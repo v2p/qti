@@ -7,6 +7,8 @@
 
 namespace Tools;
 
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use NLQTI\Base\AbstractModel;
 use NLQTI\Exception\NotImplementedException;
 
@@ -23,6 +25,23 @@ class QTIReader
     protected $classStructure;
 
     /**
+     * @var Logger
+     */
+    private static $logger;
+
+    /**
+     * @return Logger
+     */
+    protected static function getLogger()
+    {
+        if (is_null(self::$logger)) {
+            self::$logger = new Logger('QTIReader', array(new StreamHandler('php://stdout')));
+        }
+
+        return self::$logger;
+    }
+
+    /**
      * @param $filename
      */
     public function __construct($filename)
@@ -32,28 +51,7 @@ class QTIReader
 
     public function go()
     {
-        $this->makeSomeNoise($this->xmlIterator);
-
         $this->classStructure = $this->buildClasses($this->xmlIterator);
-    }
-
-    /**
-     * @param \SimpleXMLIterator $iterator
-     */
-    protected function makeSomeNoise($iterator)
-    {
-        echo $iterator->getName(), ' (';
-
-        /** @var \SimpleXMLElement $attribute */
-        foreach ($iterator->attributes() as $attribute) {
-            echo $attribute, ', ';
-        }
-
-        echo ')', "\n";
-
-        for ($iterator->rewind(); $iterator->valid(); $iterator->next()) {
-            $this->makeSomeNoise($iterator->current());
-        }
     }
 
     /**
@@ -73,20 +71,32 @@ class QTIReader
             /** @var AbstractModel $entity */
             $entity = new $className();
         } catch (NotImplementedException $e) {
+            self::getLogger()->warn('Not implemented entity exception received', array('className' => $className));
             return null;
         }
 
         // fill attributes:
         /** @var \SimpleXMLElement $attribute */
         foreach ($elementIterator->attributes() as $attribute) {
-            $entity->{$attribute->getName()} = strval($attribute);
+
+            $attributeName = $attribute->getName();
+
+            self::getLogger()->debug('Look at the attribute', array('attribute' => $attributeName));
+
+            $entity->$attributeName = strval($attribute);
         }
 
         // fill children entities:
         for ($elementIterator->rewind(); $elementIterator->valid(); $elementIterator->next()) {
 
-            if ($childEntity = $this->buildClasses($elementIterator->current())) {
-                $entity->{$elementName} = $childEntity;
+            /** @var \SimpleXMLIterator $child */
+            $child = $elementIterator->current();
+            $childName = $child->getName();
+
+            self::getLogger()->debug('Look at the child', array('child' => $childName));
+
+            if ($childEntity = $this->buildClasses($child)) {
+                $entity->{$childName} = $childEntity;
             }
         }
 
