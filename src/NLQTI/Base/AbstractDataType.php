@@ -7,8 +7,6 @@
 
 namespace NLQTI\Base;
 
-use NLQTI\Exception\Base\AbstractDataType\WrongValueForDataTypeException;
-
 /**
  * Class AbstractDataType
  *
@@ -24,9 +22,9 @@ abstract class AbstractDataType
     /**
      * @param mixed $value
      *
-     * @return bool
+     * @return mixed
      */
-    abstract protected function isValueValid($value);
+    abstract protected function castToType($value);
 
     /**
      * @return mixed
@@ -40,11 +38,7 @@ abstract class AbstractDataType
 
     public function setValue($value)
     {
-        if ($this->isValueValid($value)) {
-            $this->value = $value;
-        } else {
-            throw new WrongValueForDataTypeException("Attempt to assign {$value}");
-        }
+        $this->value = $this->castToType($value);
     }
 
     /**

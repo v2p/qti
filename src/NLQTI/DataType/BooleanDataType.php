@@ -16,9 +16,9 @@ class BooleanDataType extends AbstractDataType
      *
      * @return bool
      */
-    protected function isValueValid($value)
+    protected function castToType($value)
     {
-        return is_bool($value);
+        return filter_var($value, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**

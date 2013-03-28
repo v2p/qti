@@ -8,6 +8,7 @@
 namespace NLQTI\DataType;
 
 use NLQTI\Base\AbstractDataType;
+use NLQTI\Exception\Base\AbstractDataType\CastToDataTypeException;
 
 /**
  * Class UriDataType
@@ -19,11 +20,16 @@ class UriDataType extends AbstractDataType
     /**
      * @param mixed $value
      *
+     * @throws CastToDataTypeException
      * @return bool
      */
-    protected function isValueValid($value)
+    protected function castToType($value)
     {
-        return is_string ($value);
+        if (!is_string($value)) {
+            throw new CastToDataTypeException("Unsuccessful cast of {$value} to the data type " . get_class());
+        }
+
+        return $value;
     }
 
     /**

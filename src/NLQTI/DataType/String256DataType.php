@@ -7,6 +7,8 @@
 
 namespace NLQTI\DataType;
 
+use NLQTI\Exception\Base\AbstractDataType\CastToDataTypeException;
+
 /**
  * Class StringDataType
  *
@@ -17,14 +19,19 @@ class String256DataType extends StringDataType
     /**
      * @param mixed $value
      *
-     * @return bool
+     * @throws CastToDataTypeException
+     * @return string
      */
-    protected function isValueValid($value)
+    protected function castToType($value)
     {
-        if (!parent::isValueValid($value)) {
-            return false;
+        $parentValue = parent::castToType($value);
+
+        $length = mb_strlen($parentValue);
+
+        if ($length >= 256) {
+            throw new CastToDataTypeException("Unsuccessful cast of {$parentValue} to the data type " . get_class());
         }
 
-        return mb_strlen($value) <= 256;
+        return $parentValue;
     }
 }

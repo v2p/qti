@@ -8,11 +8,11 @@
 namespace NLQTI\Exception\Base\AbstractDataType;
 
 /**
- * Class WrongValueForDataTypeException
+ * Class CastToDataTypeException
  *
  * @package NLQTI\Exception\Base\AbstractDataType
  */
-class WrongValueForDataTypeException extends \Exception
+class CastToDataTypeException extends \Exception
 {
 
 }
