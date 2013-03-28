@@ -32,7 +32,7 @@ class QTIReader
 
     public function go()
     {
-        //$this->makeSomeNoise($this->xmlIterator);
+        $this->makeSomeNoise($this->xmlIterator);
 
         $this->classStructure = $this->buildClasses($this->xmlIterator);
     }
@@ -85,11 +85,9 @@ class QTIReader
         // fill children entities:
         for ($elementIterator->rewind(); $elementIterator->valid(); $elementIterator->next()) {
 
-            if ($elementName == 'assessmentTest') {
-                continue;
+            if ($childEntity = $this->buildClasses($elementIterator->current())) {
+                $entity->{$elementName} = $childEntity;
             }
-
-            $entity->{$elementName} = $this->buildClasses($elementIterator->current());
         }
 
         return $entity;
