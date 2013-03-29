@@ -2,7 +2,7 @@
     "name": "v2p/qti",
 
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.2.0",
         "monolog/monolog": "1.4.*"
     },
     "autoload": {

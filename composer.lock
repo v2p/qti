@@ -1,5 +1,5 @@
 {
-    "hash": "0136b55ca8f6ab3bbc8f1f4f37275b6d",
+    "hash": "bdc356022854fb2961263e3db0cd97b1",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -113,7 +113,7 @@
 
     ],
     "platform": {
-        "php": ">=5.3.0"
+        "php": ">=5.2.0"
     },
     "platform-dev": [
 
