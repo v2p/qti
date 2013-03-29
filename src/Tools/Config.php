@@ -8,9 +8,13 @@
 namespace Tools;
 
 
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use NLQTI\Base\AbstractModel;
+
 class Config
 {
-    protected static $elementToClassMap = array(
+    protected $elementToClassMap = array(
         //region NLQTI
         'assessmentitem' => '\NLQTI\AssessmentItem',
         'assessmentItemRef' => '\NLQTI\AssessmentItemRef',
@@ -54,16 +58,61 @@ class Config
         //endregion
     );
 
+    protected $loggersInstances;
+
+    /**
+     * @var Config
+     */
+    protected static $instance;
+
+    public static function getInstance()
+    {
+        if (is_null(self::$instance)) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
+    protected function init()
+    {
+        $this->loggersInstances = array(
+            '__default__' => new Logger('Default', array(new StreamHandler('php://stdout'))),
+
+            'QTIReader' => new Logger('QTIReader', array(new StreamHandler('php://stdout'))),
+            'AbstractModel' => new Logger('AbstractModel', array(new StreamHandler('php://stdout'))),
+        );
+    }
+
     /**
      * @param string $elementName
      * @return bool|string
      */
-    public static function resolveClassByElementName($elementName)
+    public function resolveClassByElementName($elementName)
     {
-        if (!isset(self::$elementToClassMap[$elementName])) {
+        if (!isset($this->elementToClassMap[$elementName])) {
             return false;
         }
 
-        return self::$elementToClassMap[$elementName];
+        return $this->elementToClassMap[$elementName];
+    }
+
+    /**
+     * @param $channelName
+     *
+     * @return Logger
+     */
+    public function getLogger($channelName)
+    {
+        if (isset($this->loggersInstances[$channelName])) {
+            return $this->loggersInstances[$channelName];
+        } else {
+            return $this->loggersInstances['__default__'];
+        }
+    }
+
+    public function __construct()
+    {
+        $this->init();
     }
 }

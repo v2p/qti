@@ -7,8 +7,6 @@
 
 namespace Tools;
 
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
 use NLQTI\Base\AbstractModel;
 use NLQTI\Exception\NotImplementedException;
 
@@ -23,23 +21,6 @@ class QTIReader
      * @var AbstractModel
      */
     protected $classStructure;
-
-    /**
-     * @var Logger
-     */
-    private static $logger;
-
-    /**
-     * @return Logger
-     */
-    protected static function getLogger()
-    {
-        if (is_null(self::$logger)) {
-            self::$logger = new Logger('QTIReader', array(new StreamHandler('php://stdout')));
-        }
-
-        return self::$logger;
-    }
 
     /**
      * @param $filename
@@ -63,7 +44,7 @@ class QTIReader
     {
         $elementName = $elementIterator->getName();
 
-        if (!$className = Config::resolveClassByElementName($elementName)) {
+        if (!$className = Config::getInstance()->resolveClassByElementName($elementName)) {
             throw new \Exception();
         }
 
@@ -71,7 +52,7 @@ class QTIReader
             /** @var AbstractModel $entity */
             $entity = new $className();
         } catch (NotImplementedException $e) {
-            self::getLogger()->warn('Not implemented entity exception received', array('className' => $className));
+            Config::getInstance()->getLogger('QTIReader')->warn('Not implemented entity exception received', array('className' => $className));
             return null;
         }
 
@@ -81,7 +62,7 @@ class QTIReader
 
             $attributeName = $attribute->getName();
 
-            self::getLogger()->debug('Look at the attribute', array('attribute' => $attributeName));
+            Config::getInstance()->getLogger('QTIReader')->debug('Look at the attribute', array('attribute' => $attributeName));
 
             $entity->$attributeName = strval($attribute);
         }
@@ -93,7 +74,7 @@ class QTIReader
             $child = $elementIterator->current();
             $childName = $child->getName();
 
-            self::getLogger()->debug('Look at the child', array('child' => $childName));
+            Config::getInstance()->getLogger('QTIReader')->debug('Look at the child', array('child' => $childName));
 
             if ($childEntity = $this->buildClasses($child)) {
                 $entity->{$childName} = $childEntity;
