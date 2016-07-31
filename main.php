@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * Date: 3/28/13
- * Time: 12:11 AM
- */
 
 require_once 'vendor/autoload.php';
 

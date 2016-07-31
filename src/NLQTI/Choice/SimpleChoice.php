@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm. 
- * Date: 18.03.13
- * Time: 17:57
- */
 
 namespace NLQTI\Choice;
 
@@ -38,5 +33,4 @@ class SimpleChoice
      * @var string
      */
     protected $identifier;
-
 }

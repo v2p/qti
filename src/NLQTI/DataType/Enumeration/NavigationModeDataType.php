@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm. 
- * Date: 26.03.13
- * Time: 16:43
- */
 
 namespace NLQTI\DataType\Enumeration;
 

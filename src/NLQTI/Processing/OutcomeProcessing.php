@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm. 
- * Date: 27.03.13
- * Time: 15:58 
- */
 
 namespace NLQTI\Processing;
 

@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm. 
- * Date: 26.03.13
- * Time: 11:51
- */
 
 namespace NLQTI\Base;
 
@@ -21,7 +16,7 @@ use Tools\Config;
 abstract class AbstractModel
 {
     /**
-     * Multiplicity of the attributes and child entites:
+     * Multiplicity of the attributes and child entities:
      */
     const SINGLE_MANDATORY = '1'; // 1
     const SINGLE_OPTIONAL = '?'; // 0 or 1
@@ -36,7 +31,7 @@ abstract class AbstractModel
     const ATTRIBUTE_DATA_TYPE = 0;
     const ATTRIBUTE_MULTIPLICITY = 1;
 
-    // for a child entites:
+    // for a child entities:
     const CHILD_ENTITY_CLASS = 0;
     const CHILD_ENTITY_MULTIPLICITY = 1;
 

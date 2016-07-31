@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm. 
- * Date: 18.03.13
- * Time: 15:43
- */
 
 namespace NLQTI\Feedback;
 

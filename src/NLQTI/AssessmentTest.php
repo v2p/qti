@@ -1,18 +1,11 @@
 <?php
-/**
- * Created by JetBrains PhpStorm. 
- * Date: 25.03.13
- * Time: 16:47
- */
 
 namespace NLQTI;
 
 use NLQTI\Base\AbstractModel;
 use NLQTI\DataType\String256DataType;
 use NLQTI\DataType\StringDataType;
-use NLQTI\Declaration\OutcomeDeclaration;
 use NLQTI\Feedback\TestFeedback;
-use NLQTI\Processing\OutcomeProcessing;
 
 /**
  * Class AssessmentTest

@@ -1,16 +1,9 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * Date: 3/28/13
- * Time: 1:09 AM
- */
 
 namespace Tools;
 
-
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use NLQTI\Base\AbstractModel;
 
 class Config
 {

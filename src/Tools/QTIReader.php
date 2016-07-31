@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * Date: 3/27/13
- * Time: 11:56 PM
- */
 
 namespace Tools;
 
